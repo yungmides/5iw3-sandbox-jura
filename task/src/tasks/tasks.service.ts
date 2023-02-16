@@ -13,11 +13,11 @@ export class TasksService {
   ) {}
 
   create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+    return this.taskRepository.create(createTaskDto);
   }
 
   findAll() {
-    return `This action returns all tasks`;
+    return this.taskRepository.findAll();
   }
 
   findOne(id: number) {
