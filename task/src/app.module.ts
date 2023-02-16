@@ -1,8 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TasksModule } from './tasks/tasks.module';
-import { DatabaseModule } from './database/database.module';
+import { MikroOrmModule } from '@mikro-orm/nestjs';
 
 @Module({
-  imports: [TasksModule, DatabaseModule],
+  imports: [
+    TasksModule,
+    MikroOrmModule.forRoot({
+      autoLoadEntities: true,
+      dbName: 'task',
+      type: 'mysql',
+    }),
+  ],
 })
 export class AppModule {}

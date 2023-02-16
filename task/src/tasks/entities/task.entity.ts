@@ -1,14 +1,18 @@
-import { Table, Column, Model, Unique } from 'sequelize-typescript';
+import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
 
-@Table
-export class Task extends Model {
-  @Unique
-  @Column
+@Entity()
+export class Task {
+  @PrimaryKey()
+  id: number;
+
+  @Property({
+    unique: true,
+  })
   name: string;
 
-  @Column
+  @Property()
   dueDate: Date;
 
-  @Column
+  @Property()
   done: boolean;
 }
