@@ -12,8 +12,10 @@ export class TasksService {
     private readonly taskRepository: EntityRepository<Task>,
   ) {}
 
-  create(createTaskDto: CreateTaskDto) {
-    return this.taskRepository.create(createTaskDto);
+  async create(createTaskDto: CreateTaskDto) {
+    const task = await this.taskRepository.create(createTaskDto)
+    await this.taskRepository.persistAndFlush(task);
+    return task;
   }
 
   findAll() {
@@ -21,14 +23,27 @@ export class TasksService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} task`;
+    return this.taskRepository.findOne(id);
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async update(id: number, updateTaskDto: UpdateTaskDto) {
+    let task = await this.taskRepository.findOne(id);
+    task = await this.taskRepository.assign(task, updateTaskDto);
+    await this.taskRepository.flush();
+    return task;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async changeStatus(id: number) {
+    let task = await this.taskRepository.findOne(id);
+    task = await this.taskRepository.assign(task, {
+      done: !JSON.parse(task.done),
+    });
+    await this.taskRepository.flush();
+    return task;
+  }
+
+  async remove(id: number) {
+    const task = await this.taskRepository.findOne(id);
+    return this.taskRepository.removeAndFlush(task);
   }
 }
