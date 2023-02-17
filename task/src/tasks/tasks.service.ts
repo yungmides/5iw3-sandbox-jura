@@ -1,4 +1,4 @@
-import { EntityRepository, wrap } from '@mikro-orm/core';
+import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -35,7 +35,7 @@ export class TasksService {
 
   async changeStatus(id: number) {
     let task = await this.taskRepository.findOne(id);
-    await wrap(task).assign({
+    task = await this.taskRepository.assign(task, {
       done: !task.done,
     });
     await this.taskRepository.flush();
