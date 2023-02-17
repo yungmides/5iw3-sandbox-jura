@@ -12,5 +12,4 @@ MikroOrm
 
 ### Todo
 - Documentation
-- Logging
 - CI

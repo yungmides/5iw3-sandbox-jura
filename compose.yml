@@ -24,5 +24,12 @@ services:
       - 5000:5000
     stdin_open: true
 
+  dev:
+    image: node:18-slim
+    working_dir: /app
+    volumes:
+      - ./task:/app
+      - /app/node_modules
+
 volumes:
   task-db:
