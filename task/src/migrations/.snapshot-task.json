@@ -33,13 +33,13 @@
         },
         "done": {
           "name": "done",
-          "type": "varchar(255)",
+          "type": "tinyint(1)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "default": "false",
-          "mappedType": "string"
+          "mappedType": "boolean"
         }
       },
       "name": "task",
