@@ -35,9 +35,7 @@ export class TasksService {
 
   async changeStatus(id: number) {
     let task = await this.taskRepository.findOne(id);
-    task = await this.taskRepository.assign(task, {
-      done: !task.done,
-    });
+    task.done = !task.done;
     await this.taskRepository.flush();
     return task;
   }
