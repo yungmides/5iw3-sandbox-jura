@@ -15,10 +15,7 @@ services:
     build:
       context: ./task
       target: runner
-    environment:
-      APP_ENV: dev
     volumes:
-      - ./task:/app
       - /app/node_modules
     ports:
       - 5000:5000
