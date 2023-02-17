@@ -16,7 +16,6 @@ services:
       context: ./task
       target: runner
     volumes:
-      - ./task:/app
       - /app/node_modules
     ports:
       - 5000:5000

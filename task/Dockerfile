@@ -13,9 +13,9 @@ RUN npm run build
 
 FROM node:18-alpine as runner
 
-ENV NODE_ENV dev
-
 ARG APP_ENV=prod
+
+ENV APP_ENV=${APP_ENV}
 
 USER node
 WORKDIR /app
@@ -23,6 +23,9 @@ WORKDIR /app
 COPY --from=builder --chown=node:node /app/package*.json ./
 COPY --from=builder --chown=node:node /app/node_modules/ ./node_modules/
 COPY --from=builder --chown=node:node /app/dist/ ./dist/
+
+COPY --from=builder --chown=node:node /app/src/migrations ./src/migrations
+COPY --from=builder --chown=node:node /app/tsconfig.json ./tsconfig.json
 
 COPY --chown=node:node docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
