@@ -6,4 +6,10 @@ export default {
   password: 'rootpw',
   dbName: 'task',
   type: 'mysql', // one of `mongo` | `mysql` | `mariadb` | `postgresql` | `sqlite`
+  driverOptions: {
+    connection: {
+      host: 'database',
+      port: 3306,
+    },
+  }
 } as MikroOrmModuleOptions;

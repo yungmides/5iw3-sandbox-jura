@@ -14,5 +14,5 @@ export class Task {
   dueDate: Date;
 
   @Property()
-  done = false;
+  done: boolean = false;
 }
