@@ -13,7 +13,7 @@ export class TasksService {
   ) {}
 
   async create(createTaskDto: CreateTaskDto) {
-    const task = await this.taskRepository.create(createTaskDto)
+    const task = await this.taskRepository.create(createTaskDto);
     await this.taskRepository.persistAndFlush(task);
     return task;
   }
@@ -34,7 +34,7 @@ export class TasksService {
   }
 
   async changeStatus(id: number) {
-    let task = await this.taskRepository.findOne(id);
+    const task = await this.taskRepository.findOne(id);
     task.done = !task.done;
     await this.taskRepository.flush();
     return task;
