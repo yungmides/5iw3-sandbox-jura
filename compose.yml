@@ -11,25 +11,27 @@ services:
     ports:
       - 3306:3306
   
-  task:
-    build:
-      context: ./task
-      target: runner
-    environment:
-      APP_ENV: dev
-    volumes:
-      - ./task:/app
-      - /app/node_modules
-    ports:
-      - 5000:5000
-    stdin_open: true
+  # task:
+  #   build:
+  #     context: ./task
+  #     target: runner
+  #   environment:
+  #     APP_ENV: dev
+  #   volumes:
+  #     - ./task:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - 5000:5000
+  #   stdin_open: true
 
   dev:
     image: node:18-slim
     working_dir: /app
     volumes:
       - ./5iw3-ms-task:/app
-      - /app/node_modules
+    stdin_open: true
+    environment:
+      - DB_URL=mysql://root:rootpw@database/
 
 volumes:
   task-db:
